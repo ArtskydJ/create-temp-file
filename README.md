@@ -16,15 +16,22 @@ process.stdin
 	})
 ```
 
-#usage
+#api
+
+```js
+var createTempFile = require('create-temp-file')
+```
 
 ###`createTempFile()`
 
-Returns a write stream to the new temp file with the following properties:
-- `path` is the path the the file on the hard drive
-- `cleanup(cb)` is a function that will delete the temp file. `cb` is the optional callback, and defaults to a no-op.
-- `cleanupSync()` is a function that deletes the temp file synchronously.
+Returns a write stream to the new temporary file with the following properties:
+- `path` is the path to the temporary file
+- `cleanup(cb)` is a function that will delete the temporary file. `cb` is the optional callback, and defaults to a no-op.
+- `cleanupSync()` is a function that deletes the temporary file synchronously.
 
+#install
+
+With [npm][https://npmjs.com] do:
 #license
 
 [VOL](http://veryopenlicense.com/)
