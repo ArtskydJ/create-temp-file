@@ -10,7 +10,7 @@ var createTempFile = require('create-temp-file')
 
 var tempFile = createTempFile()
 process.stdin
-	.pipe(tempFile.writeStream)
+	.pipe(tempFile)
 	.on('finish', function () {
 		tempFile.cleanup()
 	})
@@ -26,12 +26,17 @@ var createTempFile = require('create-temp-file')
 
 Returns a write stream to the new temporary file with the following properties:
 - `path` is the path to the temporary file
-- `cleanup(cb)` is a function that will delete the temporary file. `cb` is the optional callback, and defaults to a no-op.
+- `cleanup([cb])` is a function that will delete the temporary file. `cb` is the optional callback, and defaults to a no-op.
 - `cleanupSync()` is a function that deletes the temporary file synchronously.
 
 #install
 
-With [npm][https://npmjs.com] do:
+With [npm](https://npmjs.com/) do:
+
+```
+npm install create-temp-file
+```
+
 #license
 
 [VOL](http://veryopenlicense.com/)
