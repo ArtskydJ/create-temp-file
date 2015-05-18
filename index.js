@@ -16,5 +16,5 @@ module.exports = function createTempFile() {
 }
 
 function generateTempFilePath() {
-	return pathJoin(os.tmpdir(), Math.random().toString().slice(2))
+	return pathJoin(osTmpDir(), Math.random().toString().slice(2))
 }
