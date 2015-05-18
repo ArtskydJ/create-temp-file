@@ -25,5 +25,8 @@
   "devDependencies": {
     "concat-stream": "^1.4.7",
     "tap": "^1.0.4"
+  },
+  "dependencies": {
+    "os-tmpdir": "^1.0.1"
   }
 }

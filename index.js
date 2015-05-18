@@ -1,6 +1,6 @@
 var fs = require('fs')
-var os = require('os')
-var path = require('path')
+var osTmpDir = require('os-tmpdir')
+var pathJoin = require('path').join
 
 module.exports = function createTempFile() {
 	var path = generateTempFilePath()
@@ -16,5 +16,5 @@ module.exports = function createTempFile() {
 }
 
 function generateTempFilePath() {
-	return path.join(os.tmpdir(), Math.random().toString().slice(2))
+	return pathJoin(os.tmpdir(), Math.random().toString().slice(2))
 }
