@@ -4,7 +4,7 @@
   "description": "Creates a temporary file, returns a write stream, a path, and cleanup functions",
   "main": "index.js",
   "scripts": {
-    "test": "tap test.js"
+    "test": "tap test/*.js"
   },
   "repository": {
     "type": "git",
@@ -23,8 +23,7 @@
   },
   "homepage": "https://github.com/ArtskydJ/create-temp-file",
   "devDependencies": {
-    "concat-stream": "^1.4.7",
-    "tap": "^1.0.4"
+    "tap": "^1.0.10"
   },
   "dependencies": {
     "os-tmpdir": "^1.0.1"
