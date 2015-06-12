@@ -28,10 +28,10 @@ var createTempFile = require('create-temp-file')
 
 ### `var ws = createTempFile()`
 
-Returns a write stream to the new temporary file with the following properties:
-- `path` is the path to the temporary file.
-- `cleanup([cb])` is a function that will delete the temporary file. `cb` is the optional callback, and defaults to a no-op.
-- `cleanupSync()` is a function that deletes the temporary file synchronously.
+Returns a [write stream](https://nodejs.org/api/fs.html#fs_class_fs_writestream) to the new temporary file with the following properties:
+- `path` is the absolute path to the temporary file.
+- `cleanup([cb])` is a function that will delete the temporary file. Like [`fs.unlink`](https://nodejs.org/api/fs.html#fs_fs_unlink_path_callback). If `cb` is not provided, errors will be swallowed.
+- `cleanupSync()` is a function that deletes the temporary file synchronously. Like [`fs.unlinkSync(path)`](https://nodejs.org/api/fs.html#fs_fs_unlinksync_path).
 
 # install
 
