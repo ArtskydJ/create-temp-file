@@ -13,11 +13,11 @@ Creates a temporary file, returns a write stream, a path, and cleanup functions
 var createTempFile = require('create-temp-file')
 
 var tempFile = createTempFile()
+
 process.stdin
 	.pipe(tempFile)
-	.on('finish', function () {
-		tempFile.cleanup()
-	})
+
+process.on('exit', tempFile.cleanupSync)
 ```
 
 # api
@@ -26,12 +26,13 @@ process.stdin
 var createTempFile = require('create-temp-file')
 ```
 
-### `var ws = createTempFile()`
+### `var ws = createTempFile([ext])`
 
-Returns a [write stream](https://nodejs.org/api/fs.html#fs_class_fs_writestream) to the new temporary file with the following properties:
-- `path` is the absolute path to the temporary file.
-- `cleanup([cb])` is a function that will delete the temporary file. Like [`fs.unlink`](https://nodejs.org/api/fs.html#fs_fs_unlink_path_callback). If `cb` is not provided, errors will be swallowed.
-- `cleanupSync()` is a function that deletes the temporary file synchronously. Like [`fs.unlinkSync(path)`](https://nodejs.org/api/fs.html#fs_fs_unlinksync_path).
+- `ext` is an optional extension for the temporary file. E.g. `'.txt'`
+- Returns `ws`, a [write stream](https://nodejs.org/api/fs.html#fs_class_fs_writestream) to the new temporary file with the following properties:
+	- `ws.path` is the absolute path to the temporary file.
+	- `ws.cleanup([cb])` is a function that will delete the temporary file. Like [`fs.unlink`](https://nodejs.org/api/fs.html#fs_fs_unlink_path_callback). If `cb` is not provided, errors will be swallowed.
+	- `ws.cleanupSync()` is a function that deletes the temporary file synchronously. Like [`fs.unlinkSync(path)`](https://nodejs.org/api/fs.html#fs_fs_unlinksync_path).
 
 # install
 

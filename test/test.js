@@ -19,6 +19,14 @@ test('write stream works', function (t) {
 	}
 })
 
+test('extension', function (t) {
+	t.plan(1)
+	var file = ctf('.txt')
+	t.notEqual(file.path.indexOf('.txt'), -1, '".txt" exists in file path')
+	file.cleanupSync()
+	t.end()
+})
+
 test('cleanupSync() works', function (t) {
 	t.plan(3)
 

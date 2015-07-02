@@ -11,9 +11,9 @@
     "url": "https://github.com/ArtskydJ/create-temp-file"
   },
   "keywords": [
+    "stream",
     "temp",
     "tmp",
-    "stream",
     "write"
   ],
   "author": "Joseph Dykstra",
@@ -26,6 +26,6 @@
     "tap": "^1.0.10"
   },
   "dependencies": {
-    "os-tmpdir": "^1.0.1"
+    "tempfile": "^1.1.1"
   }
 }

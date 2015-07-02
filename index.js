@@ -1,9 +1,8 @@
 var fs = require('fs')
-var osTmpDir = require('os-tmpdir')
-var pathJoin = require('path').join
+var generateTempFilePath = require('tempfile')
 
-module.exports = function createTempFile() {
-	var path = generateTempFilePath()
+module.exports = function createTempFile(ext) {
+	var path = generateTempFilePath(ext)
 	var writeStream = fs.createWriteStream(path)
 	writeStream.path = path
 	writeStream.cleanup = function cln(cb) {
@@ -13,8 +12,4 @@ module.exports = function createTempFile() {
 		fs.unlinkSync(path)
 	}
 	return writeStream
-}
-
-function generateTempFilePath() {
-	return pathJoin(osTmpDir(), Math.random().toString().slice(2))
 }
