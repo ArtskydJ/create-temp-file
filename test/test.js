@@ -14,7 +14,7 @@ function ctf(ext) {
 test('write stream works', function (t) {
 	t.plan(2)
 	var file = ctf()
-	fs.createReadStream(__dirname + '/helper.txt')
+	fs.createReadStream(__dirname + '/do-not-change.txt')
 		.pipe(file)
 		.on('finish', testWS)
 
