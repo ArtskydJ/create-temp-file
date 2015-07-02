@@ -1,6 +1,15 @@
 var test = require('tap').test
 var fs = require('fs')
-var ctf = require('../')
+var createTempFile = require('../')
+
+function ctf(ext) {
+	var ws = createTempFile(ext)
+	ws.on('error', function (err) {
+		throw err
+	})
+	return ws
+}
+
 
 test('write stream works', function (t) {
 	t.plan(2)
@@ -23,8 +32,41 @@ test('extension', function (t) {
 	t.plan(1)
 	var file = ctf('.txt')
 	t.notEqual(file.path.indexOf('.txt'), -1, '".txt" exists in file path')
+	file.end('hey')
 	file.cleanupSync()
 	t.end()
+})
+
+test('error handling sync', function (t) {
+	var ws = createTempFile()
+	ws.on('error', function (e) {
+		t.equal(e.code, 'EPERM', 'Got EPERM error')
+		t.end()
+	})
+	setTimeout(function () {
+		try {
+			fs.unlinkSync(ws.path)
+		} catch (e) {
+			t.fail(String(e))
+		}
+		setTimeout(ws.cleanupSync, 10)
+	}, 10)
+})
+
+test('error handling async', function (t) {
+	var ws = createTempFile()
+	ws.on('error', function (e) {
+		t.equal(e.code, 'EPERM', 'Got EPERM error')
+		t.end()
+	})
+	setTimeout(function () {
+		try {
+			fs.unlinkSync(ws.path)
+		} catch (err) {
+			t.fail(String(err))
+		}
+		setTimeout(ws.cleanup, 10)
+	}, 10)
 })
 
 test('cleanupSync() works', function (t) {
@@ -45,6 +87,9 @@ test('cleanup() works', function (t) {
 	t.plan(3)
 
 	var file = ctf()
+	file.on('error', function (err) {
+		t.fail(String(err))
+	})
 	file.end('ello wurld')
 
 	setTimeout(function () { //timeout makes this test much more robust

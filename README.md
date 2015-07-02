@@ -14,8 +14,7 @@ var createTempFile = require('create-temp-file')
 
 var tempFile = createTempFile()
 
-process.stdin
-	.pipe(tempFile)
+process.stdin.pipe(tempFile)
 
 process.on('exit', tempFile.cleanupSync)
 ```
