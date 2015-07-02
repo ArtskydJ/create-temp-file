@@ -30,8 +30,9 @@ var createTempFile = require('create-temp-file')
 - `ext` is an optional extension for the temporary file. E.g. `'.txt'`
 - Returns `ws`, a [write stream](https://nodejs.org/api/fs.html#fs_class_fs_writestream) to the new temporary file with the following properties:
 	- `ws.path` is the absolute path to the temporary file.
-	- `ws.cleanup([cb])` is a function that will delete the temporary file. Like [`fs.unlink`](https://nodejs.org/api/fs.html#fs_fs_unlink_path_callback). If `cb` is not provided, errors will be swallowed.
-	- `ws.cleanupSync()` is a function that deletes the temporary file synchronously. Like [`fs.unlinkSync(path)`](https://nodejs.org/api/fs.html#fs_fs_unlinksync_path).
+	- `ws.cleanup([cb])` is a function that will delete the temporary file. Like [`fs.unlink`](https://nodejs.org/api/fs.html#fs_fs_unlink_path_callback). If `cb` is not provided, errors will be emitted. Do `ws.on('error', handler)` to handle errors.
+	- `ws.cleanupSync()` is a function that deletes the temporary file synchronously. Like [`fs.unlinkSync(path)`](https://nodejs.org/api/fs.html#fs_fs_unlinksync_path). If an error occurs, it will be emitted. Do `ws.on('error', handler)` to handle errors.
+
 
 # install
 
