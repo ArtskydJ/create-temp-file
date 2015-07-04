@@ -26,6 +26,6 @@
     "tap": "^1.0.10"
   },
   "dependencies": {
-    "tempfile": "^1.1.1"
+    "tempfile2": "^1.0.0"
   }
 }
