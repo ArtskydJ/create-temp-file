@@ -1,8 +1,8 @@
 var fs = require('fs')
-var generateTempFilePath = require('tempfile')
+var generateTempFilePath = require('tempfile2')
 
-module.exports = function createTempFile(ext) {
-	var path = generateTempFilePath(ext)
+module.exports = function createTempFile(params) {
+	var path = generateTempFilePath(params)
 	var writeStream = fs.createWriteStream(path)
 	writeStream.path = path
 	writeStream.cleanup = function cln(cb) {
