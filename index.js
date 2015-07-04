@@ -1,5 +1,5 @@
 var fs = require('fs')
-var generateTempFilePath = require('tempfile')
+var generateTempFilePath = require('tempfile2')
 
 module.exports = function createTempFile(ext) {
 	var path = generateTempFilePath(ext)
