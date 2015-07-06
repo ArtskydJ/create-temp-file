@@ -1,17 +1,20 @@
 var fs = require('fs')
 var generateTempFilePath = require('tempfile2')
 
-function emitError(err) {
-	writeStream.emit('error', err)
-}
-
 module.exports = function createTempFile(params) {
 	var path = generateTempFilePath(params)
 	var writeStream = fs.createWriteStream(path)
+
+	function emitError(err) {
+		writeStream.emit('error', err)
+	}
+
 	writeStream.path = path
+
 	writeStream.cleanup = function cln(cb) {
 		fs.unlink(path, cb || emitError)
 	}
+
 	writeStream.cleanupSync = function clnSnc() {
 		try {
 			fs.unlinkSync(path)
