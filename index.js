@@ -1,6 +1,10 @@
 var fs = require('fs')
 var generateTempFilePath = require('tempfile2')
 
+function emitError(err) {
+	writeStream.emit('error', err)
+}
+
 module.exports = function createTempFile(params) {
 	var path = generateTempFilePath(params)
 	var writeStream = fs.createWriteStream(path)
@@ -15,9 +19,16 @@ module.exports = function createTempFile(params) {
 			emitError(err)
 		}
 	}
-	return writeStream
 
-	function emitError(err) {
-		writeStream.emit('error', err)
+	writeStream.flush = function fls() {
+		fileStream.end();
+		return writeStream.cleanup();
 	}
+
+	writeStream.flushSync = function flsSnc() {
+		fileStream.end();
+		return writeStream.cleanupSync();
+	}
+
+	return writeStream
 }
