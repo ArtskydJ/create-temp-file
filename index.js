@@ -24,12 +24,12 @@ module.exports = function createTempFile(params) {
 	}
 
 	writeStream.flush = function fls() {
-		fileStream.end();
+		writeStream.end();
 		return writeStream.cleanup();
 	}
 
 	writeStream.flushSync = function flsSnc() {
-		fileStream.end();
+		writeStream.end();
 		return writeStream.cleanupSync();
 	}
 
