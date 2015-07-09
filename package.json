@@ -26,7 +26,6 @@
     "tap": "^1.0.10"
   },
   "dependencies": {
-    "end-of-stream": "~1.1.0",
     "tempfile2": "^1.0.0"
   }
 }
