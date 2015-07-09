@@ -1,5 +1,4 @@
 var fs = require('fs')
-var streamEnd = require('end-of-stream')
 var generateTempFilePath = require('tempfile2')
 
 module.exports = function createTempFile(params) {
