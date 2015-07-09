@@ -13,16 +13,16 @@ function ctf(ext) {
 
 test('write stream works', function (t) {
 	t.plan(2)
-	var file = ctf()
+	var ws = ctf()
 	fs.createReadStream(__dirname + '/do-not-change.txt')
-		.pipe(file)
+		.pipe(ws)
 		.on('finish', testWS)
 
 	function testWS() {
-		fs.readFile(file.path, { encoding: 'utf8' }, function (err, string) {
+		fs.readFile(ws.path, { encoding: 'utf8' }, function (err, string) {
 			t.notOk(err, err ? err.message : 'no error')
 			t.equal(string, 'do not delete or change this file\n', 'strings match')
-			file.cleanupSync()
+			ws.cleanupSync()
 			t.end()
 		})
 	}
@@ -30,10 +30,10 @@ test('write stream works', function (t) {
 
 test('extension', function (t) {
 	t.plan(1)
-	var file = ctf('.txt')
-	t.notEqual(file.path.indexOf('.txt'), -1, '".txt" exists in file path')
-	file.end('hey')
-	file.cleanupSync()
+	var ws = ctf('.txt')
+	t.notEqual(ws.path.indexOf('.txt'), -1, '".txt" exists in file path')
+	ws.end('lolz')
+	ws.cleanupSync()
 	t.end()
 })
 
@@ -55,21 +55,19 @@ function errorHandling(method) {
 		}, 10)
 	}
 }
-
 test('error handling sync', errorHandling('cleanupSync'))
-
 test('error handling async', errorHandling('cleanup'))
 
 test('cleanupSync() works', function (t) {
 	t.plan(3)
 
-	var file = ctf()
-	file.end('lolz')
+	var ws = ctf()
+	ws.end('lolz')
 
 	setTimeout(function () { //timeout makes this test much more robust
-		t.ok(fs.existsSync(file.path), 'created file')
-		t.doesNotThrow(file.cleanupSync)
-		t.notOk(fs.existsSync(file.path), 'cleanupSync() deleted the file')
+		t.ok(fs.existsSync(ws.path), 'created file')
+		t.doesNotThrow(ws.cleanupSync)
+		t.notOk(fs.existsSync(ws.path), 'cleanupSync() deleted the file')
 		t.end()
 	}, 0)
 })
@@ -77,18 +75,31 @@ test('cleanupSync() works', function (t) {
 test('cleanup() works', function (t) {
 	t.plan(3)
 
-	var file = ctf()
-	file.on('error', function (err) {
-		t.fail(String(err))
-	})
-	file.end('ello wurld')
+	var ws = ctf()
+	ws.end('lolz')
 
 	setTimeout(function () { //timeout makes this test much more robust
-		t.ok(fs.existsSync(file.path), 'created file')
-		file.cleanup(function (err) {
+		t.ok(fs.existsSync(ws.path), 'created file')
+		ws.cleanup(function (err) {
 			t.notOk(err, err ? err.message : 'no error during cleanup()')
-			t.notOk(fs.existsSync(file.path), 'cleanup() deleted the file')
+			t.notOk(fs.existsSync(ws.path), 'cleanup() deleted the file')
 			t.end()
 		})
 	}, 0)
 })
+
+function callsEnd(method) {
+	return function(t) {
+		t.plan(1)
+		var ws = ctf()
+		ws.on('finish', function () {
+			t.pass('ws.end() was called')
+			t.end()
+		})
+		ws.write('lolz')
+		setTimeout(ws[method], 0)
+	}
+}
+callsEnd('what')
+test('ws.end is called when cleanup is called and stream is still going', callsEnd('cleanup'))
+test('ws.end is called when cleanupSync is called and stream is still going', callsEnd('cleanupSync'))
