@@ -1,14 +1,16 @@
 {
   "name": "create-temp-file",
-  "version": "0.3.1",
   "description": "Creates a temporary file, returns a write stream, a path, and cleanup functions",
+  "homepage": "https://github.com/ArtskydJ/create-temp-file",
+  "version": "0.3.1",
   "main": "index.js",
-  "scripts": {
-    "test": "tap test/*.js"
-  },
+  "author": "Joseph Dykstra",
   "repository": {
     "type": "git",
     "url": "https://github.com/ArtskydJ/create-temp-file"
+  },
+  "bugs": {
+    "url": "https://github.com/ArtskydJ/create-temp-file/issues"
   },
   "keywords": [
     "stream",
@@ -16,17 +18,14 @@
     "tmp",
     "write"
   ],
-  "author": "Joseph Dykstra",
-  "license": "VOL",
-  "bugs": {
-    "url": "https://github.com/ArtskydJ/create-temp-file/issues"
+  "dependencies": {
+    "tempfile2": "^1.0.0"
   },
-  "homepage": "https://github.com/ArtskydJ/create-temp-file",
   "devDependencies": {
     "tap": "^1.0.10"
   },
-  "dependencies": {
-    "end-of-stream": "~1.1.0",
-    "tempfile2": "^1.0.0"
-  }
+  "scripts": {
+    "test": "tap test/*.js"
+  },
+  "license": "VOL"
 }
