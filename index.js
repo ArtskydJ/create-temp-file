@@ -19,7 +19,7 @@ module.exports = function createTempFile(params) {
 
 	writeStream.cleanup = function cln(cb) {
 		if (!streamHasEnded) writeStream.end()
-		fs.unlink(path, cb || emitError)
+		fs.unlink(path, cb || function() {})
 	}
 
 	writeStream.cleanupSync = function clnSnc() {
