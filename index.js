@@ -8,7 +8,7 @@ module.exports = function createTempFile(params) {
 	var writeStream = fs.createWriteStream(path)
 
 	function emitError(err) {
-		writeStream.emit('error', err)
+		if (err) writeStream.emit('error', err)
 	}
 
 	writeStream.path = path
