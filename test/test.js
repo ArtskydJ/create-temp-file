@@ -1,6 +1,7 @@
-var test = require('tap').test
+var test = require('tape')
 var fs = require('fs')
 var createTempFile = require('../')
+require('string.prototype.startswith')
 
 function ctf(ext) {
 	var ws = createTempFile(ext)
@@ -21,7 +22,7 @@ test('write stream works', function (t) {
 	function testWS() {
 		fs.readFile(ws.path, { encoding: 'utf8' }, function (err, string) {
 			t.notOk(err, err ? err.message : 'no error')
-			t.equal(string, 'do not delete or change this file\n', 'strings match')
+			t.ok(string.startsWith('do not delete or change this file'), 'strings match')
 			ws.cleanupSync()
 			t.end()
 		})

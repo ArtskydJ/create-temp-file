@@ -4,7 +4,7 @@
   "description": "Creates a temporary file, returns a write stream, a path, and cleanup functions",
   "main": "index.js",
   "scripts": {
-    "test": "tap test/*.js"
+    "test": "tape test/*.js"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/ArtskydJ/create-temp-file",
   "devDependencies": {
-    "tap": "^1.0.10"
+    "string.prototype.startswith": "^0.2.0",
+    "tape": "^4.0.0"
   },
   "dependencies": {
     "tempfile2": "^1.0.0"
