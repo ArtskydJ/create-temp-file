@@ -5,15 +5,14 @@ module.exports = function createTempFile(params) {
 	var path = generateTempFilePath(params)
 	var writeStream = fs.createWriteStream(path)
 
-	function emitError(err) {
-		if (err) writeStream.emit('error', err)
-	}
-
 	writeStream.path = path
 
 	writeStream.cleanup = function cln(cb) {
 		writeStream.end()
-		fs.unlink(path, cb || emitError)
+		fs.unlink(path, function (err) {
+			if (err) writeStream.emit('error', err)
+			if (cb) cb(err)
+		})
 	}
 
 	writeStream.cleanupSync = function clnSnc() {
@@ -21,7 +20,7 @@ module.exports = function createTempFile(params) {
 		try {
 			fs.unlinkSync(path)
 		} catch (err) {
-			emitError(err)
+			writeStream.emit('error', err)
 		}
 	}
 

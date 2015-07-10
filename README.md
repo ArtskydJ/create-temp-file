@@ -45,17 +45,6 @@ A [write stream](https://nodejs.org/api/fs.html#fs_class_fs_writestream) to the 
 
 If an error occurs in `ws.cleanup()` or `ws.cleanupSync()`, the error will be emitted.
 
-```js
-// In all of these cases, handleErr will be called if there is an error
-ws1.cleanup(handleErr)
-
-ws2.on('error', handleErr)
-ws2.cleanup()
-
-ws3.on('error', handleErr)
-ws3.cleanupSync()
-```
-
 # install
 
 With [npm](https://npmjs.com/) do:
