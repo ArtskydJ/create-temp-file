@@ -23,10 +23,11 @@
   },
   "homepage": "https://github.com/ArtskydJ/create-temp-file",
   "devDependencies": {
+    "string.prototype.endswith": "^0.2.0",
     "string.prototype.startswith": "^0.2.0",
     "tape": "^4.0.0"
   },
   "dependencies": {
-    "tempfile2": "^1.0.0"
+    "tempfile": "^1.1.1"
   }
 }

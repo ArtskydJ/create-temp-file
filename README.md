@@ -10,9 +10,9 @@ Creates a temporary file, returns a write stream, a path, and cleanup functions
 # example
 
 ```js
-var createTempFile = require('create-temp-file')
+var createFile = require('create-temp-file')()
 
-var ws = createTempFile()
+var ws = createFile()
 process.stdin.pipe(ws)
 
 process.on('exit', ws.cleanupSync)
@@ -21,27 +21,22 @@ process.on('exit', ws.cleanupSync)
 # api
 
 ```js
-var createTempFile = require('create-temp-file')
+var CreateTempFile = require('create-temp-file')
 ```
 
-## `var ws = createTempFile([options])`
+## `var createFile = CreateTempFile([pathGenerator])`
 
-#### `options`
+`pathGenerator` is a function that returns a path. Defaults to [`tempfile`](https://github.com/sindresorhus/tempfile).
 
-A string or object of options for [tempfile2](https://github.com/kikobeats/tempfile2).
+## `var ws = createFile([opts])`
 
-- If it is a string, it is the extension of the temporary file. E.g. `'.png'`.
-- If it is an object, it can have the following properties:
-	- `ext` is the extension of the temporary file. E.g. `'.png'`.
-	- `path` is the your own path instead of your system's temporary directory. E.g. `'C:\Users\Joseph`.
+`opts` is an object that is passed into `pathGenerator`. By default, you can pass in an extension; e.g. `'.png'`.
 
-#### `ws`
-
-A [write stream](https://nodejs.org/api/fs.html#fs_class_fs_writestream) to the new temporary file with the following properties:
+`ws` is a [write stream](https://nodejs.org/api/fs.html#fs_class_fs_writestream) to the new temporary file with the following properties:
 
 - `ws.path` is the absolute path to the temporary file. E.g. `'/tmp/b285e724-226c-11e5-9981-82bd40254040.png'`
-- `ws.cleanup([cb])` is a function that will delete the temporary file. Like [`fs.unlink`](https://nodejs.org/api/fs.html#fs_fs_unlink_path_callback).
-- `ws.cleanupSync()` is a function that deletes the temporary file synchronously. Like [`fs.unlinkSync(path)`](https://nodejs.org/api/fs.html#fs_fs_unlinksync_path).
+- `ws.cleanup([cb])` deletes the temporary file. Like [`fs.unlink`](https://nodejs.org/api/fs.html#fs_fs_unlink_path_callback).
+- `ws.cleanupSync` deletes the temporary file synchronously. Like [`fs.unlinkSync`](https://nodejs.org/api/fs.html#fs_fs_unlinksync_path).
 
 If an error occurs in `ws.cleanup()` or `ws.cleanupSync()`, the error will be emitted.
 

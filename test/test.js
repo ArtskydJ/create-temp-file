@@ -2,9 +2,10 @@ var test = require('tape')
 var fs = require('fs')
 var createTempFile = require('../')
 require('string.prototype.startswith')
+require('string.prototype.endswith')
 
 function ctf(ext) {
-	var ws = createTempFile(ext)
+	var ws = createTempFile()(ext)
 	ws.on('error', function (err) {
 		throw err
 	})
@@ -32,7 +33,7 @@ test('write stream works', function (t) {
 test('extension', function (t) {
 	t.plan(1)
 	var ws = ctf('.txt')
-	t.notEqual(ws.path.indexOf('.txt'), -1, '".txt" exists in file path')
+	t.notEqual(ws.path.indexOf('.txt'), -1, 'file extension is ".txt"')
 	ws.end('lolz')
 	ws.cleanupSync()
 	t.end()
@@ -41,7 +42,7 @@ test('extension', function (t) {
 function errorHandling(method) {
 	var codes = [ 'EPERM', 'ENOENT' ]
 	return function errhandle(t) {
-		var ws = createTempFile()
+		var ws = createTempFile()()
 		ws.on('error', function (e) {
 			t.notEqual(codes.indexOf(e.code), -1, 'Got ' + codes.join('/') + ' error')
 			t.end()
@@ -104,3 +105,12 @@ function callsEnd(method) {
 callsEnd('what')
 test('ws.end is called when cleanup is called and stream is still going', callsEnd('cleanup'))
 test('ws.end is called when cleanupSync is called and stream is still going', callsEnd('cleanupSync'))
+
+test('Path generator options', function (t) {
+	t.plan(1)
+	var ws = createTempFile(String)('./hello.txt')
+	t.ok(ws.path.endsWith('hello.txt'), 'filename is "hello.txt"')
+	ws.end('lolz')
+	ws.cleanupSync()
+	t.end()
+})
