@@ -42,7 +42,7 @@ If an error occurs in `ws.cleanup()` or `ws.cleanupSync()`, the error will be em
 
 # install
 
-With [npm](https://npmjs.com/) do:
+With [npm](https://nodejs.org/en/download/) do:
 
 ```
 npm install create-temp-file
