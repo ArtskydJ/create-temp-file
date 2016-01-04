@@ -1,11 +1,9 @@
 create-temp-file
 ================
 
-[![Build Status](https://travis-ci.org/ArtskydJ/create-temp-file.svg)](https://travis-ci.org/ArtskydJ/create-temp-file)
-[![Dependency Status](https://david-dm.org/artskydj/create-temp-file.svg)](https://david-dm.org/artskydj/create-temp-file)
-[![devDependency Status](https://david-dm.org/artskydj/create-temp-file/dev-status.svg)](https://david-dm.org/artskydj/create-temp-file#info=devDependencies)
+> A tiny node module that creates a temporary file, returns a write stream, a path, and cleanup functions
 
-Creates a temporary file, returns a write stream, a path, and cleanup functions
+[![Build Status](https://travis-ci.org/ArtskydJ/create-temp-file.svg)](https://travis-ci.org/ArtskydJ/create-temp-file)
 
 # example
 
@@ -44,9 +42,7 @@ If an error occurs in `ws.cleanup()` or `ws.cleanupSync()`, the error will be em
 
 With [npm](https://nodejs.org/en/download/) do:
 
-```
-npm install create-temp-file
-```
+    npm install create-temp-file
 
 # license
 
