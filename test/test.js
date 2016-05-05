@@ -114,3 +114,20 @@ test('Path generator options', function (t) {
 	ws.cleanupSync()
 	t.end()
 })
+
+
+test('Non-existent file causes an error when cleanup is called', function (t) {
+	var ws = createTempFile()('.txt')
+	ws.end('this is a test')
+
+	ws.on('error', function (err) {
+		t.equal(err.code, 'ENOENT')
+		t.end()
+	})
+
+	fs.unlink(ws.path, function (err) {
+		t.ifError(err)
+
+		setTimeout(ws.cleanup, 100)
+	})
+})
