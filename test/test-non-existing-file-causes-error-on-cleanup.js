@@ -13,7 +13,8 @@ function nonexistentFileCausesAnErrorWhenMethodIsCalled(method) {
 
 		ws.on('error', function (err) {
 			t.ok(fileWasDeleted, 'File was deleted')
-			t.equal(err.code, 'ENOENT', 'Got an ENOENT error')
+			var errCodeIsEnoentOrEperm = (err.code === 'ENOENT' || err.code === 'EPERM')
+			t.ok(errCodeIsEnoentOrEperm, 'Got an ENOENT or EPERM error')
 		})
 
 		setTimeout(function () {
