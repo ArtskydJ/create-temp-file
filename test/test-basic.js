@@ -4,9 +4,6 @@ var ctf = require('./helper/ctf.js')
 require('string.prototype.startswith')
 require('string.prototype.endswith')
 
-
-
-
 test('write stream works', function (t) {
 	t.plan(2)
 	var ws = ctf()

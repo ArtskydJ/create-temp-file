@@ -9,7 +9,7 @@ function nonexistentFileCausesAnErrorWhenMethodIsCalled(method) {
 	test('Non-existent file causes an error when '+method+' is called', function (t) {
 		t.plan(5)
 		var fileWasDeleted = false
-		var ws = createTempFile()('.txt')
+		var ws = createTempFile('.txt')
 
 		ws.on('error', function (err) {
 			t.ok(fileWasDeleted, 'File was deleted')
